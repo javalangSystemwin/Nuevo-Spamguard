@@ -1,5 +1,7 @@
 package com.github.aellondir.spamguard;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 import org.bukkit.entity.Player;
@@ -10,14 +12,14 @@ import org.bukkit.entity.Player;
  * @serial McMod JPGH.0001
  * @version 0.01
  */
-public class SUserChecks {
+public class SUserChecks implements Serializable {
 
     private transient long timeAtLastMsg;
     private transient ArrayList<String> recMsgs;
     private int numInfractions = 0;
-    private final int COOL_DOWN = 300000;
-    private final Random rand = new Random(System.nanoTime());
-    private final static String PLACE_HOLDER = "Place Holder";
+    private transient final int COOL_DOWN = 300000;
+    private transient final Random rand = new Random(System.nanoTime());
+    private transient final static String PLACE_HOLDER = "Place Holder";
 
     protected SUserChecks(Player p) {
         this(p, PLACE_HOLDER);
@@ -29,6 +31,12 @@ public class SUserChecks {
         recMsgs = new ArrayList<>();
 
         recMsgs.add(msg);
+    }
+
+    private SUserChecks(int numInfractions) {
+        this.numInfractions = numInfractions;
+
+        recMsgs.add(PLACE_HOLDER);
     }
 
     protected int spamCheck(String msg, long l) {
@@ -95,4 +103,11 @@ public class SUserChecks {
     public int getNumInfractions() {
         return numInfractions;
     }
-}
+
+
+    private void writeObject(java.io.ObjectOutputStream oOS) throws IOException {
+        oOS.defaultWriteObject();
+    }
+
+    }
+
