@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 /**
  *
  * @author James Hull
- * @serial McMod JPGH.0001
+ * @serial McMod JPGH.0002 v1
  * @version 0.01
  */
 public class SUserChecks implements Serializable {
@@ -102,11 +102,6 @@ public class SUserChecks implements Serializable {
 
     public int getNumInfractions() {
         return numInfractions;
-    }
-
-
-    private void writeObject(java.io.ObjectOutputStream oOS) throws IOException {
-        oOS.defaultWriteObject();
     }
 
     }

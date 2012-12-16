@@ -1,11 +1,8 @@
 package com.github.aellondir.spamguard;
 
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -25,14 +22,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class SpamListener implements Listener {
 
     private int numPlayers = 0;
-    /*
-     * logArr stores Time at which data was saved the array it was placed into and a string representing the data itself.
-     * logArr[0] stores the time which the log entry was made.
-     * logArr[1] saves the array the log entry was saved to these two should have the same number of indices throughout the process.
-     * logArr[2] saves information related to player logins/outs, issues encountered by the plugin, general claptrap, and debug info.
-     * logArr[3] saves information on
-     */
-    private ArrayList<String> logArr;
+    protected ArrayList<String> logArr;
     private HashMap<String, SUserChecks> userMap;
 
     protected SpamListener() {
@@ -48,12 +38,9 @@ public class SpamListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void addPlayer(PlayerJoinEvent pJE) {
         numPlayers++;
+        
         if (pJE.getPlayer().hasPlayedBefore()) {
-            try {
-            ObjectInputStream oIS = new ObjectInputStream(new FileInputStream(new FileDescriptor()));
-            } catch (IOException e) {
-                e.getMessage();
-            }
+
         } else {
             userMap.put(pJE.getPlayer().getPlayerListName(), new SUserChecks(pJE.getPlayer()));
         }
@@ -80,14 +67,14 @@ public class SpamListener implements Listener {
                 case 0:
                     return;
                 case 1:
-                    String str = spamed(aPCE.getPlayer(), userMap.get(aPCE.getPlayer()
+                    String str = spammed(aPCE.getPlayer(), userMap.get(aPCE.getPlayer()
                             .getPlayerListName()).getNumInfractions(), aPCE.getMessage());
                 default:
             }
         }
     }
 
-    private String spamed(Player p, int numInfractions, String msg) {
+    private String spammed(Player p, int numInfractions, String msg) {
         StringBuilder sB = new StringBuilder(112);
 
         sB.append(java.util.Calendar.getInstance().getTime().toString()).append(" ").append(p.getDisplayName()).append(" ").append(Integer.toString(numInfractions));
@@ -111,5 +98,17 @@ public class SpamListener implements Listener {
         }
         //@todo remove return null;
         return null;
+    }
+
+    public void addLogEntry(String logEntry) {
+        if (logArr == null) {
+            return;
+        }
+
+        StringBuilder sB = new StringBuilder();
+
+        sB.append(Calendar.getInstance().getTime().toString()).append(" ").append(logEntry);
+
+        logArr.add(sB.toString());
     }
 }

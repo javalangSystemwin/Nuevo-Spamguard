@@ -10,8 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class Spamguard extends JavaPlugin {
     private final static long serialVersionUID = 6789401536133L;
-
-    //<editor-fold desc="implemented methods" defaultstate="collapsed".
+    private static SpamListener sL;
 
     @Override
     public void onEnable() {
@@ -22,5 +21,8 @@ public class Spamguard extends JavaPlugin {
     public void onDisable() {
         super.onDisable();
     }
-    //</editor-fold>
+
+    public static SpamListener getSL() {
+        return sL;
+    }
 }

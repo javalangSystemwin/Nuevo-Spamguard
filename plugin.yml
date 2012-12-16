@@ -1,3 +1,37 @@
 name: Spamguard
 main: com.github.aellondir.spamguard.Spamguard
 version: 0.01
+
+permissions:
+  spamguard.*:
+    description: Gives access to all server commands.
+    children:
+      toggle: op
+      pardonall: op
+      pardon: op
+      smack: op
+
+command:
+  sgToggle:
+    description: Enables or Disables the plugin.
+    usage: /sgToggle <0 - 1>
+    permission: spamguard.toggle
+    permission-message: Spamguard says':' No.
+
+  sgPardonall:
+    description: Pardons all of a players infractions,there will still be a log of them.
+    usage: /sgPardonall [player]
+    permission: spamguard.pardonall
+    permission-message: Spamguard says':' No.
+
+  sgPardon:
+    description: Pardons some of a players infractions, there will still be a log of them.
+    usage: /sgPardon [player] <'\#'>
+    permission: spamguard.pardon
+    permission-message: Spamguard says':' No.
+
+  sgSmack:
+    description: Adds some infractions to a player, this is logged.
+    usage: /sgSmack [player] <'\#'>
+    permission: spamguard.smack
+    permission-message: Spamguard says':' No.
