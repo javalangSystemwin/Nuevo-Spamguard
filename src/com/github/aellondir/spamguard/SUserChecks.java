@@ -1,7 +1,6 @@
 package com.github.aellondir.spamguard;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 import org.bukkit.entity.Player;
@@ -12,7 +11,7 @@ import org.bukkit.entity.Player;
  * @serial McMod JPGH.0002 v1
  * @version 0.01
  */
-public class SUserChecks implements Serializable {
+public class SUserChecks {
 
     private transient long timeAtLastMsg;
     private transient ArrayList<String> recMsgs;
