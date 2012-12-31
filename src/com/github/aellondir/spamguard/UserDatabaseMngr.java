@@ -45,6 +45,8 @@ public class UserDatabaseMngr {
                 e.printStackTrace();
             }
         }
+
+        rS = stateM.executeQuery(RS_QUERY);
     }
 
     private void firstRun() throws SQLException {
@@ -65,23 +67,38 @@ public class UserDatabaseMngr {
         }
     }
 
-    private void addOUpDPlayer() throws SQLException {
+    //players only added when they have committed an infraction.
+    private void addPlayer(String name, int infractions) {
+
     }
 
-    private boolean isNewPlayer() throws SQLException {
+    private boolean updatePlayer(String name, int infractions) {
+
         return true;
+    }
+
+    private boolean isNewPlayer(String name) throws SQLException {
+        while (rS.next()) {
+            if (rS.getString("NAME").equals(name)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public boolean addNPlayer(String name, int infractions) {
         try {
-            if (isNewPlayer() == false) {
+            if (isNewPlayer(name) == false) {
                 return false;
             }
 
-            this.addOUpDPlayer();
+
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return true;
     }
 }

@@ -13,12 +13,12 @@ import org.bukkit.entity.Player;
  */
 public class SUserChecks {
 
-    private transient long timeAtLastMsg;
-    private transient ArrayList<String> recMsgs;
+    private long timeAtLastMsg;
+    private ArrayList<String> recMsgs;
     private int numInfractions = 0;
-    private transient final int COOL_DOWN = 300000;
-    private transient final Random rand = new Random(System.nanoTime());
-    private transient final static String PLACE_HOLDER = "Place Holder";
+    private final int COOL_DOWN = 300000;
+    private final Random rand = new Random(System.nanoTime());
+    private final static String PLACE_HOLDER = "Place Holder";
 
     protected SUserChecks(Player p) {
         this(p, PLACE_HOLDER);
