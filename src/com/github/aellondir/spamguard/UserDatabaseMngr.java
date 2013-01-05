@@ -21,7 +21,7 @@ public class UserDatabaseMngr {
     private final String CONN_URL_FR = "jdbc:derby:UsersDB;create=true";
     private final String TABLE_FORMAT =
             "create table USERS                            "
-            + "    (NAME VARCHAR(32) NOT NULL PRIMARY KEY,   "
+            + "    (NAME CHAR(32) NOT NULL PRIMARY KEY,   "
             + "     INFRACTIONS INTEGER NOT NULL,            ";
     private final String RS_QUERY = "SELECT * FROM UsersDB";
     private Statement stateM;
@@ -67,12 +67,13 @@ public class UserDatabaseMngr {
         }
     }
 
-    //players only added when they have committed an infraction.
+    //players only added when they have committed an infraction.  Not handled in this method except that characters
     private void addPlayer(String name, int infractions) {
 
     }
 
-    private boolean updatePlayer(String name, int infractions) {
+    private boolean updatePlayer(String name, int infractions) throws SQLException {
+        stateM.execute("");
 
         return true;
     }
@@ -80,10 +81,12 @@ public class UserDatabaseMngr {
     private boolean isNewPlayer(String name) throws SQLException {
         while (rS.next()) {
             if (rS.getString("NAME").equals(name)) {
+                rS.first();
                 return true;
             }
         }
 
+        rS.first();
         return false;
     }
 
@@ -93,8 +96,7 @@ public class UserDatabaseMngr {
                 return false;
             }
 
-
-
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
